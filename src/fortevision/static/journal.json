@@ -1,0 +1,438 @@
+{
+ "generated_at": "2026-10-18T05:34:41+00:00",
+ "note": "Замер на обучающих видео: классификатор подобран на них же, поэтому оценка завышена. На новых видео ожидается ниже.",
+ "summary": {
+  "total": 42,
+  "tp": 20,
+  "tn": 13,
+  "fp": 7,
+  "fn": 2,
+  "accuracy": 0.7857,
+  "precision": 0.7407,
+  "recall": 0.9091,
+  "f1": 0.8163,
+  "time_accuracy": 0.7
+ },
+ "rows": [
+  {
+   "video": "X-1",
+   "file": "X-1.mov",
+   "label": "violation",
+   "true_time": 22.0,
+   "pred_verdict": "violation",
+   "pred_time": 21.1,
+   "delta": 0.9,
+   "outcome": "TP"
+  },
+  {
+   "video": "X-2",
+   "file": "X-2.mov",
+   "label": "violation",
+   "true_time": 10.0,
+   "pred_verdict": "violation",
+   "pred_time": 13.1,
+   "delta": 3.1,
+   "outcome": "TP"
+  },
+  {
+   "video": "X-3",
+   "file": "Х-3.mov",
+   "label": "no_violation",
+   "true_time": null,
+   "pred_verdict": "no_violation",
+   "pred_time": null,
+   "delta": null,
+   "outcome": "TN"
+  },
+  {
+   "video": "X-4",
+   "file": "Х-4.mov",
+   "label": "violation",
+   "true_time": 57.0,
+   "pred_verdict": "violation",
+   "pred_time": 67.1,
+   "delta": 10.1,
+   "outcome": "TP"
+  },
+  {
+   "video": "X-5",
+   "file": "Х-5.mov",
+   "label": "no_violation",
+   "true_time": null,
+   "pred_verdict": "no_violation",
+   "pred_time": null,
+   "delta": null,
+   "outcome": "TN"
+  },
+  {
+   "video": "X-8",
+   "file": "Х-8.mov",
+   "label": "no_violation",
+   "true_time": null,
+   "pred_verdict": "no_violation",
+   "pred_time": null,
+   "delta": null,
+   "outcome": "TN"
+  },
+  {
+   "video": "X-10",
+   "file": "Х-10.mov",
+   "label": "no_violation",
+   "true_time": null,
+   "pred_verdict": "no_violation",
+   "pred_time": null,
+   "delta": null,
+   "outcome": "TN"
+  },
+  {
+   "video": "X-11",
+   "file": "Х-11.mov",
+   "label": "violation",
+   "true_time": 18.0,
+   "pred_verdict": "violation",
+   "pred_time": 18.1,
+   "delta": 0.1,
+   "outcome": "TP"
+  },
+  {
+   "video": "X-12",
+   "file": "Х-12.mov",
+   "label": "no_violation",
+   "true_time": null,
+   "pred_verdict": "violation",
+   "pred_time": 35.1,
+   "delta": null,
+   "outcome": "FP"
+  },
+  {
+   "video": "X-13",
+   "file": "Х-13.mov",
+   "label": "violation",
+   "true_time": 47.0,
+   "pred_verdict": "violation",
+   "pred_time": 35.0,
+   "delta": 12.0,
+   "outcome": "TP"
+  },
+  {
+   "video": "X-14",
+   "file": "Х-14.mov",
+   "label": "no_violation",
+   "true_time": null,
+   "pred_verdict": "violation",
+   "pred_time": 32.0,
+   "delta": null,
+   "outcome": "FP"
+  },
+  {
+   "video": "X-15",
+   "file": "Х-15.mov",
+   "label": "violation",
+   "true_time": 15.0,
+   "pred_verdict": "violation",
+   "pred_time": 5.0,
+   "delta": 10.0,
+   "outcome": "TP"
+  },
+  {
+   "video": "X-16",
+   "file": "Х-16.mov",
+   "label": "no_violation",
+   "true_time": null,
+   "pred_verdict": "violation",
+   "pred_time": 17.1,
+   "delta": null,
+   "outcome": "FP"
+  },
+  {
+   "video": "X-17",
+   "file": "Х-17.mov",
+   "label": "violation",
+   "true_time": 7.0,
+   "pred_verdict": "violation",
+   "pred_time": 13.0,
+   "delta": 6.0,
+   "outcome": "TP"
+  },
+  {
+   "video": "X-18",
+   "file": "Х-18.mov",
+   "label": "violation",
+   "true_time": 20.0,
+   "pred_verdict": "violation",
+   "pred_time": 9.0,
+   "delta": 11.0,
+   "outcome": "TP"
+  },
+  {
+   "video": "X-19",
+   "file": "Х-19.mov",
+   "label": "no_violation",
+   "true_time": null,
+   "pred_verdict": "no_violation",
+   "pred_time": null,
+   "delta": null,
+   "outcome": "TN"
+  },
+  {
+   "video": "X-20",
+   "file": "Х-20.mov",
+   "label": "violation",
+   "true_time": 5.0,
+   "pred_verdict": "no_violation",
+   "pred_time": null,
+   "delta": null,
+   "outcome": "FN"
+  },
+  {
+   "video": "X-21",
+   "file": "Х-21.mov",
+   "label": "no_violation",
+   "true_time": null,
+   "pred_verdict": "no_violation",
+   "pred_time": null,
+   "delta": null,
+   "outcome": "TN"
+  },
+  {
+   "video": "X-22",
+   "file": "Х-22.mov",
+   "label": "violation",
+   "true_time": 14.0,
+   "pred_verdict": "violation",
+   "pred_time": 15.1,
+   "delta": 1.1,
+   "outcome": "TP"
+  },
+  {
+   "video": "X-23",
+   "file": "Х-23.mov",
+   "label": "no_violation",
+   "true_time": null,
+   "pred_verdict": "violation",
+   "pred_time": 13.1,
+   "delta": null,
+   "outcome": "FP"
+  },
+  {
+   "video": "X-24",
+   "file": "Х-24.mov",
+   "label": "violation",
+   "true_time": 8.0,
+   "pred_verdict": "violation",
+   "pred_time": 8.0,
+   "delta": 0.0,
+   "outcome": "TP"
+  },
+  {
+   "video": "X-25",
+   "file": "Х-25.mov",
+   "label": "no_violation",
+   "true_time": null,
+   "pred_verdict": "no_violation",
+   "pred_time": null,
+   "delta": null,
+   "outcome": "TN"
+  },
+  {
+   "video": "X-26",
+   "file": "Х-26.mov",
+   "label": "violation",
+   "true_time": 9.0,
+   "pred_verdict": "violation",
+   "pred_time": 12.0,
+   "delta": 3.0,
+   "outcome": "TP"
+  },
+  {
+   "video": "X-27",
+   "file": "Х-27.mov",
+   "label": "no_violation",
+   "true_time": null,
+   "pred_verdict": "no_violation",
+   "pred_time": null,
+   "delta": null,
+   "outcome": "TN"
+  },
+  {
+   "video": "X-28",
+   "file": "Х-28.mov",
+   "label": "violation",
+   "true_time": 7.0,
+   "pred_verdict": "violation",
+   "pred_time": 11.1,
+   "delta": 4.1,
+   "outcome": "TP"
+  },
+  {
+   "video": "X-29",
+   "file": "Х-29.mov",
+   "label": "no_violation",
+   "true_time": null,
+   "pred_verdict": "violation",
+   "pred_time": 9.1,
+   "delta": null,
+   "outcome": "FP"
+  },
+  {
+   "video": "X-30",
+   "file": "Х-30.mov",
+   "label": "violation",
+   "true_time": 13.0,
+   "pred_verdict": "violation",
+   "pred_time": 17.1,
+   "delta": 4.1,
+   "outcome": "TP"
+  },
+  {
+   "video": "X-31",
+   "file": "Х-31.mov",
+   "label": "no_violation",
+   "true_time": null,
+   "pred_verdict": "violation",
+   "pred_time": 9.0,
+   "delta": null,
+   "outcome": "FP"
+  },
+  {
+   "video": "X-32",
+   "file": "Х-32.mov",
+   "label": "violation",
+   "true_time": 5.0,
+   "pred_verdict": "violation",
+   "pred_time": 6.0,
+   "delta": 1.0,
+   "outcome": "TP"
+  },
+  {
+   "video": "X-33",
+   "file": "Х-33.mov",
+   "label": "violation",
+   "true_time": 6.0,
+   "pred_verdict": "violation",
+   "pred_time": 13.0,
+   "delta": 7.0,
+   "outcome": "TP"
+  },
+  {
+   "video": "X-34",
+   "file": "Х-34.mov",
+   "label": "violation",
+   "true_time": 13.0,
+   "pred_verdict": "violation",
+   "pred_time": 8.0,
+   "delta": 5.0,
+   "outcome": "TP"
+  },
+  {
+   "video": "X-35",
+   "file": "Х-35.mov",
+   "label": "no_violation",
+   "true_time": null,
+   "pred_verdict": "no_violation",
+   "pred_time": null,
+   "delta": null,
+   "outcome": "TN"
+  },
+  {
+   "video": "X-37",
+   "file": "Х-37.mov",
+   "label": "no_violation",
+   "true_time": null,
+   "pred_verdict": "violation",
+   "pred_time": 9.1,
+   "delta": null,
+   "outcome": "FP"
+  },
+  {
+   "video": "X-38",
+   "file": "Х-38.mov",
+   "label": "violation",
+   "true_time": 33.0,
+   "pred_verdict": "violation",
+   "pred_time": 9.0,
+   "delta": 24.0,
+   "outcome": "TP"
+  },
+  {
+   "video": "X-39",
+   "file": "Х-39.mov",
+   "label": "no_violation",
+   "true_time": null,
+   "pred_verdict": "no_violation",
+   "pred_time": null,
+   "delta": null,
+   "outcome": "TN"
+  },
+  {
+   "video": "X-40",
+   "file": "Х-40.mov",
+   "label": "violation",
+   "true_time": 17.0,
+   "pred_verdict": "violation",
+   "pred_time": 16.1,
+   "delta": 0.9,
+   "outcome": "TP"
+  },
+  {
+   "video": "X-43",
+   "file": "Х-43.mov",
+   "label": "no_violation",
+   "true_time": null,
+   "pred_verdict": "no_violation",
+   "pred_time": null,
+   "delta": null,
+   "outcome": "TN"
+  },
+  {
+   "video": "X-44",
+   "file": "Х-44.mov",
+   "label": "violation",
+   "true_time": 16.0,
+   "pred_verdict": "no_violation",
+   "pred_time": null,
+   "delta": null,
+   "outcome": "FN"
+  },
+  {
+   "video": "X-45",
+   "file": "Х-45.mov",
+   "label": "no_violation",
+   "true_time": null,
+   "pred_verdict": "no_violation",
+   "pred_time": null,
+   "delta": null,
+   "outcome": "TN"
+  },
+  {
+   "video": "X-46",
+   "file": "Х-46.mov",
+   "label": "violation",
+   "true_time": 11.0,
+   "pred_verdict": "violation",
+   "pred_time": 16.1,
+   "delta": 5.1,
+   "outcome": "TP"
+  },
+  {
+   "video": "X-47",
+   "file": "Х-47.mov",
+   "label": "violation",
+   "true_time": 68.0,
+   "pred_verdict": "violation",
+   "pred_time": 67.1,
+   "delta": 0.9,
+   "outcome": "TP"
+  },
+  {
+   "video": "X-48",
+   "file": "Х-48.mov",
+   "label": "no_violation",
+   "true_time": null,
+   "pred_verdict": "no_violation",
+   "pred_time": null,
+   "delta": null,
+   "outcome": "TN"
+  }
+ ]
+}

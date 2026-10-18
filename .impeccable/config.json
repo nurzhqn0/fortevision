@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "marquee",
+        "value": "*",
+        "files": [
+          "src/fortevision/static/index.html"
+        ],
+        "createdAt": "2026-10-18T05:38:04.214Z",
+        "reason": "Agent decision, not user confirmed: indeterminate progress bar for a multi-minute analysis; reduced-motion handled in app.css"
+      }
+    ]
+  }
+}

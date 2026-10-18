@@ -1,6 +1,7 @@
 """FastAPI application implementing ForteBank Datathon API specification."""
 
 import asyncio
+import hashlib
 import logging
 import time
 import uuid
@@ -17,13 +18,25 @@ from fastapi import (
     status,
 )
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, HTMLResponse, Response, Response
+from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 
 from fortevision.analyzer import VideoAnalyzer, VLMError
+from fortevision import config
 from fortevision.config import API_KEY, HEADER_API_KEY_NAME, JOB_STALE_SEC
 
 STATIC_DIR = Path(__file__).resolve().parent / "static"
+
+
+def _asset_version() -> str:
+    """Content hash of the UI assets, appended as ?v= so browsers never reuse a stale cached copy."""
+    h = hashlib.sha1()
+    for sub in ("css/app.css", "js/player.js", "js/app.js", "js/journal.js", "journal.json"):
+        f = STATIC_DIR / sub
+        if f.exists():
+            h.update(f.read_bytes())
+    return h.hexdigest()[:10]
 
 logger = logging.getLogger(__name__)
 
@@ -33,6 +46,15 @@ api_app = FastAPI(
     description="ForteBank Datathon 2026 - AI Service for Cash Discipline Violation Detection",
     version="1.1.0",
 )
+
+@api_app.middleware("http")
+async def revalidate_ui_assets(request, call_next):
+    """Static files carry Last-Modified 1970 on Modal, so browsers would cache them 'fresh' for years; force revalidation."""
+    response = await call_next(request)
+    if request.url.path == "/" or request.url.path.startswith("/static/"):
+        response.headers["Cache-Control"] = "no-cache"
+    return response
+
 
 # Enable CORS for web UI access
 api_app.add_middleware(
@@ -144,8 +166,37 @@ async def serve_index():
     """Serve web user interface."""
     index_file = STATIC_DIR / "index.html"
     if index_file.exists():
-        return FileResponse(index_file)
+        html = index_file.read_text(encoding="utf-8").replace("__V__", _asset_version())
+        return HTMLResponse(html)
     return {"message": "ForteVision AI service is running."}
+
+
+@api_app.get("/dataset/videos/{name}")
+async def dataset_video(
+    name: str,
+    key: Optional[str] = None,
+    x_api_key: Optional[str] = Header(None, alias=HEADER_API_KEY_NAME),
+):
+    """Serve an open-dataset clip (Range-capable). The key comes in the X-API-Key header; `?key=` is kept for plain <video> tags."""
+    supplied = x_api_key or key
+    if not supplied or supplied.strip() != API_KEY:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or missing key")
+    if "/" in name or "\\" in name or ".." in name or not name.lower().endswith(".mov"):
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid video name")
+    path = config.DATASET_DIR / name
+    if not path.is_file():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Video not found")
+    return FileResponse(path, media_type="video/quicktime")
+
+
+@api_app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+
+@api_app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
 @api_app.get("/health")
@@ -224,3 +275,6 @@ async def get_job_status(
         save_job_record(job_id, job_data)
 
     return {k: v for k, v in job_data.items() if not k.startswith("_")}
+
+
+api_app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")

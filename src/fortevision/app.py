@@ -31,7 +31,9 @@ app_image = (
         "huggingface_hub>=0.28.0",
         "python-multipart>=0.0.12",
     )
+    .env({"FORTEVISION_DATASET_DIR": "/root/dataset/videos"})
     .add_local_python_source("fortevision")
+    .add_local_dir("open/videos", remote_path="/root/dataset/videos")
     .add_local_dir("src/fortevision/static", remote_path="/root/fortevision/static")
     .add_local_file("src/fortevision/classifier.json", remote_path="/root/fortevision/classifier.json")
 )

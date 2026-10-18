@@ -6,6 +6,7 @@ from pathlib import Path
 # Base Paths
 WORKSPACE_DIR = Path(__file__).resolve().parent.parent.parent
 SRC_DIR = Path(__file__).resolve().parent
+DATASET_DIR = Path(os.environ.get("FORTEVISION_DATASET_DIR", WORKSPACE_DIR / "open" / "videos"))
 
 # Hackathon / Security
 # The hackathon requires X-API-Key authentication
