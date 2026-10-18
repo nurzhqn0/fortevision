@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ForteVision — AI-контроль кассовой дисциплины | ForteBank</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .forte-burgundy { background-color: #8B1832; }
+    .forte-border-burgundy { border-color: #8B1832; }
+    .forte-text-burgundy { color: #8B1832; }
+    .forte-hover-burgundy:hover { background-color: #721328; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 forte-burgundy rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-md">
+          F
+        </div>
+        <div>
+          <span class="text-xl font-bold tracking-tight text-slate-900">Forte<span class="forte-text-burgundy">Vision</span></span>
+          <span class="ml-2 text-xs font-medium px-2 py-0.5 bg-rose-50 text-rose-700 border border-rose-200 rounded-full">AI Surveillance Audit</span>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-3 text-sm">
+        <div class="flex items-center space-x-2 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
+          <span class="text-slate-500 text-xs">API Key:</span>
+          <input id="apiKeyInput" type="password" autocomplete="off"
+                 class="bg-transparent border-0 text-xs font-mono focus:ring-0 focus:outline-none w-32 sm:w-48 text-slate-700" 
+                 placeholder="X-API-Key">
+        </div>
+        <div class="flex items-center space-x-1.5 text-xs text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200 font-medium">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>НБ РК Регламент</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+    
+    <!-- Hero / Description -->
+    <div class="mb-8">
+      <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        Анализ кассовой дисциплины по видеозаписям
+      </h1>
+      <p class="text-slate-500 text-sm sm:text-base mt-1 max-w-3xl">
+        Интеллектуальная система компьютерного зрения на базе локальной VLM-модели (Qwen2.5-VL) для автоматического выявления нарушений кассовых операций в соответствии с нормативными актами НБ РК № 231 и № 14.
+      </p>
+    </div>
+
+    <!-- Upload & Control Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+      
+      <!-- Upload Card -->
+      <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-base font-semibold text-slate-900 mb-4 flex items-center">
+          <svg class="w-5 h-5 mr-2 forte-text-burgundy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 44 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+          </svg>
+          Загрузка видеозаписи кассового узла
+        </h2>
+
+        <div id="dropzone" class="border-2 border-dashed border-slate-300 hover:border-rose-400 rounded-xl p-8 text-center cursor-pointer transition-colors bg-slate-50/50 hover:bg-rose-50/20">
+          <input type="file" id="videoFileInput" accept=".mov,.mp4" class="hidden">
+          
+          <div id="dropzonePrompt" class="space-y-3">
+            <div class="w-12 h-12 mx-auto rounded-full bg-rose-50 text-rose-700 flex items-center justify-center">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+              </svg>
+            </div>
+            <div class="text-sm font-medium text-slate-700">
+              Перетащите файл <span class="font-semibold text-slate-900">.mov</span> или нажмите для выбора
+            </div>
+            <p class="text-xs text-slate-400">Формат камер наблюдения: QuickTime .mov, разрешение 464×848, до 50 МБ</p>
+          </div>
+
+          <!-- Selected File Info -->
+          <div id="selectedFileInfo" class="hidden text-left bg-white p-4 rounded-lg border border-slate-200">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-3">
+                <div class="p-2 bg-rose-100 rounded-lg text-rose-700">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+                  </svg>
+                </div>
+                <div>
+                  <div id="fileName" class="text-sm font-semibold text-slate-900 truncate max-w-xs">video.mov</div>
+                  <div id="fileSize" class="text-xs text-slate-500">12.5 MB</div>
+                </div>
+              </div>
+              <button id="clearFileBtn" class="text-slate-400 hover:text-slate-600 text-sm">✕</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div class="text-xs text-slate-500">
+            Лимит обработки: <span class="font-medium text-slate-700">до 5 минут на видео</span>
+          </div>
+          <button id="startAnalysisBtn" disabled
+                  class="w-full sm:w-auto px-6 py-2.5 forte-burgundy forte-hover-burgundy text-white font-medium text-sm rounded-xl transition shadow disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center">
+            <span id="btnText">Запустить аудит кассы</span>
+            <svg id="btnSpinner" class="hidden animate-spin ml-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Quick Regulatory Reference Card -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
+        <div>
+          <h2 class="text-base font-semibold text-slate-900 mb-3 flex items-center">
+            <svg class="w-5 h-5 mr-2 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+            </svg>
+            Нормативная база РК
+          </h2>
+          <p class="text-xs text-slate-500 mb-3">
+            Сервис проверяет строго визуальные события, предусмотренные законодательством Республики Казахстан:
+          </p>
+          <ul class="text-xs space-y-2 text-slate-600">
+            <li class="flex items-start">
+              <span class="text-rose-600 font-bold mr-1.5">•</span>
+              <span><strong>НБ РК № 231 (2019):</strong> Правила кассовых операций (хранение ценностей, допуск лиц, запрет гаджетов)</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-rose-600 font-bold mr-1.5">•</span>
+              <span><strong>НБ РК № 14 (2020):</strong> Инженерная охрана помещений (запирание дверей, шлюзы, сейфы)</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-rose-600 font-bold mr-1.5">•</span>
+              <span><strong>adilet.zan.kz:</strong> Авторизованные нормы банковской безопасности</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="mt-4 pt-4 border-t border-slate-100 text-xs text-slate-400">
+          Защита персональных данных: распознавание лиц отключено по требованиям ТЗ.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Status & Progress Bar (Hidden by default) -->
+    <div id="progressSection" class="hidden mb-8 bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+      <div class="flex items-center justify-between mb-3">
+        <div class="flex items-center space-x-3">
+          <div class="animate-spin rounded-full h-5 w-5 border-2 border-rose-600 border-t-transparent"></div>
+          <div>
+            <div id="progressStatusText" class="text-sm font-semibold text-slate-900">Выполняется анализ видеозаписи...</div>
+            <div id="progressSubText" class="text-xs text-slate-500">Job ID: <span id="currentJobId" class="font-mono">...</span></div>
+          </div>
+        </div>
+        <div id="elapsedTimer" class="text-xs font-mono font-medium text-slate-600 bg-slate-100 px-2.5 py-1 rounded-md">
+          00:00
+        </div>
+      </div>
+      <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+        <div id="progressBar" class="forte-burgundy h-2 rounded-full transition-all duration-300 w-1/4"></div>
+      </div>
+    </div>
+
+    <!-- Results Section (Hidden until done) -->
+    <div id="resultsSection" class="hidden space-y-6">
+      
+      <!-- Verdict Card -->
+      <div id="verdictBanner" class="rounded-2xl p-6 border shadow-sm">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-4">
+            <div id="verdictIcon" class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl font-bold">
+              ✓
+            </div>
+            <div>
+              <div class="text-xs uppercase tracking-wider font-semibold opacity-75" id="verdictSub">Вердикт системы</div>
+              <h3 id="verdictTitle" class="text-xl font-bold tracking-tight">Нарушение не обнаружено</h3>
+            </div>
+          </div>
+          <div id="violationsCountBadge" class="hidden px-3 py-1 text-xs font-semibold rounded-full bg-rose-100 text-rose-800">
+            0 нарушений
+          </div>
+        </div>
+      </div>
+
+      <!-- Violations List -->
+      <div id="violationsList" class="space-y-4">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Raw JSON Response Accordion (For Jury Inspection) -->
+      <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+        <button id="toggleJsonBtn" class="w-full px-6 py-4 flex items-center justify-between text-left text-xs font-semibold text-slate-600 hover:bg-slate-50 border-b border-slate-100">
+          <span>📋 JSON-ОТВЕТ API (ДЛЯ ЖЮРИ И ПРОВЕРКИ)</span>
+          <span id="jsonToggleIcon">▼</span>
+        </button>
+        <div id="jsonContainer" class="p-6 bg-slate-900 text-emerald-400 font-mono text-xs overflow-x-auto max-h-96">
+          <pre id="rawJsonResponse">{}</pre>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Image Modal for Fullscreen Evidence Viewing -->
+  <div id="imageModal" class="hidden fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
+    <div class="relative max-w-4xl max-h-[90vh] bg-slate-900 rounded-2xl overflow-hidden p-2">
+      <button id="closeModalBtn" class="absolute top-4 right-4 text-white bg-black/50 hover:bg-black/80 rounded-full w-8 h-8 flex items-center justify-center">✕</button>
+      <img id="modalImage" src="" alt="Кадр-доказательство" class="max-h-[80vh] w-auto mx-auto object-contain rounded-lg">
+      <div id="modalCaption" class="p-3 text-center text-xs text-slate-300"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-400">
+    ForteBank Datathon 2026 • AI-сервис выявления нарушений кассовой дисциплины • Решение работает полностью локально
+  </footer>
+
+  <script>
+    // State
+    let selectedFile = null;
+    let pollInterval = null;
+    let timerInterval = null;
+    let startTime = null;
+
+    // Elements
+    const dropzone = document.getElementById('dropzone');
+    const fileInput = document.getElementById('videoFileInput');
+    const dropzonePrompt = document.getElementById('dropzonePrompt');
+    const selectedFileInfo = document.getElementById('selectedFileInfo');
+    const fileNameEl = document.getElementById('fileName');
+    const fileSizeEl = document.getElementById('fileSize');
+    const clearFileBtn = document.getElementById('clearFileBtn');
+    const startAnalysisBtn = document.getElementById('startAnalysisBtn');
+    const btnText = document.getElementById('btnText');
+    const btnSpinner = document.getElementById('btnSpinner');
+    const apiKeyInput = document.getElementById('apiKeyInput');
+    try { apiKeyInput.value = localStorage.getItem('fortevision_api_key') || ''; } catch (e) {}
+    const progressSection = document.getElementById('progressSection');
+    const progressStatusText = document.getElementById('progressStatusText');
+    const progressSubText = document.getElementById('progressSubText');
+    const currentJobId = document.getElementById('currentJobId');
+    const progressBar = document.getElementById('progressBar');
+    const elapsedTimer = document.getElementById('elapsedTimer');
+    const resultsSection = document.getElementById('resultsSection');
+    const verdictBanner = document.getElementById('verdictBanner');
+    const verdictIcon = document.getElementById('verdictIcon');
+    const verdictTitle = document.getElementById('verdictTitle');
+    const verdictSub = document.getElementById('verdictSub');
+    const violationsCountBadge = document.getElementById('violationsCountBadge');
+    const violationsList = document.getElementById('violationsList');
+    const rawJsonResponse = document.getElementById('rawJsonResponse');
+    const toggleJsonBtn = document.getElementById('toggleJsonBtn');
+    const jsonContainer = document.getElementById('jsonContainer');
+    const imageModal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalCaption = document.getElementById('modalCaption');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+
+    // Drag and drop handlers
+    dropzone.addEventListener('click', () => fileInput.click());
+    dropzone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropzone.classList.add('border-rose-500', 'bg-rose-50/40');
+    });
+    dropzone.addEventListener('dragleave', () => {
+      dropzone.classList.remove('border-rose-500', 'bg-rose-50/40');
+    });
+    dropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('border-rose-500', 'bg-rose-50/40');
+      if (e.dataTransfer.files.length > 0) {
+        handleFileSelect(e.dataTransfer.files[0]);
+      }
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        handleFileSelect(e.target.files[0]);
+      }
+    });
+
+    clearFileBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      resetFileSelection();
+    });
+
+    function handleFileSelect(file) {
+      if (!file.name.match(/\.(mov|mp4)$/i)) {
+        alert('Пожалуйста, выберите видео в формате .mov или .mp4');
+        return;
+      }
+      selectedFile = file;
+      fileNameEl.textContent = file.name;
+      fileSizeEl.textContent = (file.size / (1024 * 1024)).toFixed(1) + ' MB';
+      dropzonePrompt.classList.add('hidden');
+      selectedFileInfo.classList.remove('hidden');
+      startAnalysisBtn.disabled = false;
+    }
+
+    function resetFileSelection() {
+      selectedFile = null;
+      fileInput.value = '';
+      dropzonePrompt.classList.remove('hidden');
+      selectedFileInfo.classList.add('hidden');
+      startAnalysisBtn.disabled = true;
+    }
+
+    // Timer utility
+    function startTimer() {
+      startTime = Date.now();
+      timerInterval = setInterval(() => {
+        const delta = Math.floor((Date.now() - startTime) / 1000);
+        const mins = String(Math.floor(delta / 60)).padStart(2, '0');
+        const secs = String(delta % 60).padStart(2, '0');
+        elapsedTimer.textContent = `${mins}:${secs}`;
+      }, 1000);
+    }
+
+    function stopTimer() {
+      if (timerInterval) clearInterval(timerInterval);
+    }
+
+    // Start Analysis Handler
+    startAnalysisBtn.addEventListener('click', async () => {
+      if (!selectedFile) return;
+
+      const apiKey = apiKeyInput.value.trim();
+      if (!apiKey) {
+        alert('Введите API-ключ для авторизации');
+        return;
+      }
+      try { localStorage.setItem('fortevision_api_key', apiKey); } catch (e) {}
+
+      // UI states
+      startAnalysisBtn.disabled = true;
+      btnSpinner.classList.remove('hidden');
+      btnText.textContent = 'Загрузка видео...';
+      progressSection.classList.remove('hidden');
+      resultsSection.classList.add('hidden');
+      violationsList.innerHTML = '';
+      progressBar.style.width = '20%';
+      startTimer();
+
+      try {
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+
+        const response = await fetch('/api/v1/analyze', {
+          method: 'POST',
+          headers: { 'X-API-Key': apiKey },
+          body: formData,
+        });
+
+        if (!response.ok) {
+          const errData = await response.json().catch(() => ({}));
+          throw new Error(errData.detail || 'Ошибка запуска анализа');
+        }
+
+        const data = await response.json();
+        const jobId = data.job_id;
+        currentJobId.textContent = jobId;
+        btnText.textContent = 'Обработка...';
+        progressStatusText.textContent = 'Извлечение кадров и нейросетевой аудит...';
+        progressBar.style.width = '50%';
+
+        // Start polling
+        pollJob(jobId, apiKey);
+
+      } catch (err) {
+        stopTimer();
+        alert('Ошибка: ' + err.message);
+        btnSpinner.classList.add('hidden');
+        btnText.textContent = 'Запустить аудит кассы';
+        startAnalysisBtn.disabled = false;
+        progressSection.classList.add('hidden');
+      }
+    });
+
+    function pollJob(jobId, apiKey) {
+      if (pollInterval) clearInterval(pollInterval);
+
+      pollInterval = setInterval(async () => {
+        try {
+          const response = await fetch(`/api/v1/jobs/${jobId}`, {
+            headers: { 'X-API-Key': apiKey }
+          });
+
+          if (!response.ok) return;
+
+          const data = await response.json();
+          if (data.status === 'done' || data.status === 'failed') {
+            clearInterval(pollInterval);
+            stopTimer();
+            progressBar.style.width = '100%';
+            renderResults(data);
+          } else {
+            // Animate progress bar slightly
+            const currentW = parseInt(progressBar.style.width) || 50;
+            if (currentW < 90) {
+              progressBar.style.width = (currentW + 5) + '%';
+            }
+          }
+        } catch (e) {
+          console.error('Polling error:', e);
+        }
+      }, 2000);
+    }
+
+    function esc(str) {
+      return String(str ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+
+    function renderResults(data) {
+      btnSpinner.classList.add('hidden');
+      btnText.textContent = 'Запустить аудит кассы';
+      startAnalysisBtn.disabled = false;
+      progressSection.classList.add('hidden');
+      resultsSection.classList.remove('hidden');
+
+      // Update Raw JSON pre
+      rawJsonResponse.textContent = JSON.stringify(data, null, 2);
+
+      const hasViolations = data.verdict === 'violation' && data.violations && data.violations.length > 0;
+
+      if (data.status === 'failed') {
+        verdictBanner.className = 'rounded-2xl p-6 border shadow-sm bg-amber-50 border-amber-200 text-amber-900';
+        verdictIcon.className = 'w-12 h-12 rounded-xl flex items-center justify-center text-2xl font-bold bg-amber-100 text-amber-700';
+        verdictIcon.textContent = '!';
+        verdictTitle.textContent = 'Анализ не выполнен';
+        verdictSub.textContent = 'Видео не удалось обработать — попробуйте загрузить ещё раз';
+        violationsCountBadge.classList.add('hidden');
+        violationsList.innerHTML = '';
+        const err = document.createElement('div');
+        err.className = 'bg-white rounded-xl p-6 border border-amber-200 text-sm text-slate-700';
+        err.textContent = 'Причина: ' + (data.error || 'неизвестная ошибка');
+        violationsList.appendChild(err);
+      } else if (!hasViolations) {
+        // No violation verdict
+        verdictBanner.className = 'rounded-2xl p-6 border shadow-sm bg-emerald-50 border-emerald-200 text-emerald-900';
+        verdictIcon.className = 'w-12 h-12 rounded-xl flex items-center justify-center text-2xl font-bold bg-emerald-100 text-emerald-700';
+        verdictIcon.textContent = '✓';
+        verdictTitle.textContent = 'Нарушение не обнаружено';
+        verdictSub.textContent = 'Визуальных признаков нарушений не выявлено. Результат — подсказка для проверки человеком';
+        violationsCountBadge.classList.add('hidden');
+        violationsList.innerHTML = `
+          <div class="bg-white rounded-xl p-8 border border-slate-200 text-center text-slate-500">
+            <svg class="w-12 h-12 mx-auto text-emerald-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <div class="font-medium text-slate-800">Признаков возможных нарушений на видео не обнаружено</div>
+            <div class="text-xs text-slate-400 mt-1">Признаков посторонних лиц, оставленных ценностей или открытых дверей не зафиксировано.</div>
+          </div>
+        `;
+      } else {
+        // Violation verdict
+        verdictBanner.className = 'rounded-2xl p-6 border shadow-sm bg-rose-50 border-rose-200 text-rose-950';
+        verdictIcon.className = 'w-12 h-12 rounded-xl flex items-center justify-center text-2xl font-bold bg-rose-100 text-rose-700';
+        verdictIcon.textContent = '⚠️';
+        verdictTitle.textContent = 'Обнаружены признаки возможных нарушений';
+        verdictSub.textContent = 'Требуется проверка контролером';
+        violationsCountBadge.textContent = `${data.violations.length} нарушение(й)`;
+        violationsCountBadge.classList.remove('hidden');
+
+        // Render violation items
+        violationsList.innerHTML = '';
+        data.violations.forEach((v, idx) => {
+          const card = document.createElement('div');
+          card.className = 'bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4';
+
+          const evidenceFramesHtml = (v.evidence_frames || []).map(ef => {
+            const imgSrc = ef.image_base64.startsWith('data:') 
+              ? ef.image_base64 
+              : `data:image/jpeg;base64,${ef.image_base64}`;
+            return `
+              <div class="group relative cursor-pointer overflow-hidden rounded-xl border border-slate-200 bg-slate-100" 
+                   onclick="openModal('${imgSrc}', 'Кадр-доказательство: ${ef.timestamp_sec}с (${esc(String(v.type).replace(/['"\\]/g, ''))})')">
+                <img src="${imgSrc}" alt="Кадр ${ef.timestamp_sec}с" class="h-36 w-full object-cover transition group-hover:scale-105">
+                <div class="absolute bottom-2 left-2 bg-black/70 text-white text-[10px] px-2 py-0.5 rounded font-mono">
+                  ${ef.timestamp_sec}s
+                </div>
+                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white text-xs font-semibold">
+                  🔍 Увеличить
+                </div>
+              </div>
+            `;
+          }).join('');
+
+          card.innerHTML = `
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+              <div class="flex items-center space-x-2">
+                <span class="w-6 h-6 rounded-full bg-rose-600 text-white text-xs font-bold flex items-center justify-center">
+                  ${idx + 1}
+                </span>
+                <h4 class="text-base font-bold text-slate-900">${esc(v.type)}</h4>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="px-2.5 py-1 bg-amber-50 text-amber-800 border border-amber-200 rounded-lg text-xs font-mono font-semibold">
+                  ⏱ Таймкод: ${v.timecode_sec} сек
+                </span>
+              </div>
+            </div>
+
+            <div class="text-sm text-slate-700 leading-relaxed bg-slate-50 p-4 rounded-xl border border-slate-100">
+              <span class="font-semibold text-slate-900">Описание события: </span>
+              ${esc(v.description)}
+            </div>
+
+            <div>
+              <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+                Кадры-доказательства (${(v.evidence_frames || []).length}):
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                ${evidenceFramesHtml}
+              </div>
+            </div>
+          `;
+          violationsList.appendChild(card);
+        });
+      }
+    }
+
+    // Modal viewers
+    function openModal(src, caption) {
+      modalImage.src = src;
+      modalCaption.textContent = caption;
+      imageModal.classList.remove('hidden');
+    }
+
+    closeModalBtn.addEventListener('click', () => {
+      imageModal.classList.add('hidden');
+    });
+
+    imageModal.addEventListener('click', (e) => {
+      if (e.target === imageModal) imageModal.classList.add('hidden');
+    });
+
+    // Toggle JSON
+    toggleJsonBtn.addEventListener('click', () => {
+      jsonContainer.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

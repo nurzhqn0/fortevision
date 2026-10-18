@@ -1,0 +1,352 @@
+{
+  "summary": {
+    "total": 42,
+    "tp": 20,
+    "tn": 13,
+    "fp": 7,
+    "fn": 2,
+    "accuracy": 0.7857,
+    "precision": 0.7407,
+    "recall": 0.9091,
+    "f1": 0.8163,
+    "time_accuracy": 0.7
+  },
+  "results": [
+    {
+      "video": "X-1",
+      "true_verdict": "violation",
+      "pred_verdict": "violation",
+      "true_time": 22.0,
+      "pred_time": 21.1,
+      "verdict_match": true
+    },
+    {
+      "video": "X-2",
+      "true_verdict": "violation",
+      "pred_verdict": "violation",
+      "true_time": 10.0,
+      "pred_time": 13.1,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-3",
+      "true_verdict": "no_violation",
+      "pred_verdict": "no_violation",
+      "true_time": null,
+      "pred_time": null,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-4",
+      "true_verdict": "violation",
+      "pred_verdict": "violation",
+      "true_time": 57.0,
+      "pred_time": 67.1,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-5",
+      "true_verdict": "no_violation",
+      "pred_verdict": "no_violation",
+      "true_time": null,
+      "pred_time": null,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-8",
+      "true_verdict": "no_violation",
+      "pred_verdict": "no_violation",
+      "true_time": null,
+      "pred_time": null,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-10",
+      "true_verdict": "no_violation",
+      "pred_verdict": "no_violation",
+      "true_time": null,
+      "pred_time": null,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-11",
+      "true_verdict": "violation",
+      "pred_verdict": "violation",
+      "true_time": 18.0,
+      "pred_time": 18.1,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-12",
+      "true_verdict": "no_violation",
+      "pred_verdict": "violation",
+      "true_time": null,
+      "pred_time": 35.1,
+      "verdict_match": false
+    },
+    {
+      "video": "Х-13",
+      "true_verdict": "violation",
+      "pred_verdict": "violation",
+      "true_time": 47.0,
+      "pred_time": 35.0,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-14",
+      "true_verdict": "no_violation",
+      "pred_verdict": "violation",
+      "true_time": null,
+      "pred_time": 32.0,
+      "verdict_match": false
+    },
+    {
+      "video": "Х-15",
+      "true_verdict": "violation",
+      "pred_verdict": "violation",
+      "true_time": 15.0,
+      "pred_time": 5.0,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-16",
+      "true_verdict": "no_violation",
+      "pred_verdict": "violation",
+      "true_time": null,
+      "pred_time": 17.1,
+      "verdict_match": false
+    },
+    {
+      "video": "Х-17",
+      "true_verdict": "violation",
+      "pred_verdict": "violation",
+      "true_time": 7.0,
+      "pred_time": 13.0,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-18",
+      "true_verdict": "violation",
+      "pred_verdict": "violation",
+      "true_time": 20.0,
+      "pred_time": 9.0,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-19",
+      "true_verdict": "no_violation",
+      "pred_verdict": "no_violation",
+      "true_time": null,
+      "pred_time": null,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-20",
+      "true_verdict": "violation",
+      "pred_verdict": "no_violation",
+      "true_time": 5.0,
+      "pred_time": null,
+      "verdict_match": false
+    },
+    {
+      "video": "Х-21",
+      "true_verdict": "no_violation",
+      "pred_verdict": "no_violation",
+      "true_time": null,
+      "pred_time": null,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-22",
+      "true_verdict": "violation",
+      "pred_verdict": "violation",
+      "true_time": 14.0,
+      "pred_time": 15.1,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-23",
+      "true_verdict": "no_violation",
+      "pred_verdict": "violation",
+      "true_time": null,
+      "pred_time": 13.1,
+      "verdict_match": false
+    },
+    {
+      "video": "Х-24",
+      "true_verdict": "violation",
+      "pred_verdict": "violation",
+      "true_time": 8.0,
+      "pred_time": 8.0,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-25",
+      "true_verdict": "no_violation",
+      "pred_verdict": "no_violation",
+      "true_time": null,
+      "pred_time": null,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-26",
+      "true_verdict": "violation",
+      "pred_verdict": "violation",
+      "true_time": 9.0,
+      "pred_time": 12.0,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-27",
+      "true_verdict": "no_violation",
+      "pred_verdict": "no_violation",
+      "true_time": null,
+      "pred_time": null,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-28",
+      "true_verdict": "violation",
+      "pred_verdict": "violation",
+      "true_time": 7.0,
+      "pred_time": 11.1,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-29",
+      "true_verdict": "no_violation",
+      "pred_verdict": "violation",
+      "true_time": null,
+      "pred_time": 9.1,
+      "verdict_match": false
+    },
+    {
+      "video": "Х-30",
+      "true_verdict": "violation",
+      "pred_verdict": "violation",
+      "true_time": 13.0,
+      "pred_time": 17.1,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-31",
+      "true_verdict": "no_violation",
+      "pred_verdict": "violation",
+      "true_time": null,
+      "pred_time": 9.0,
+      "verdict_match": false
+    },
+    {
+      "video": "Х-32",
+      "true_verdict": "violation",
+      "pred_verdict": "violation",
+      "true_time": 5.0,
+      "pred_time": 6.0,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-33",
+      "true_verdict": "violation",
+      "pred_verdict": "violation",
+      "true_time": 6.0,
+      "pred_time": 13.0,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-34",
+      "true_verdict": "violation",
+      "pred_verdict": "violation",
+      "true_time": 13.0,
+      "pred_time": 8.0,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-35",
+      "true_verdict": "no_violation",
+      "pred_verdict": "no_violation",
+      "true_time": null,
+      "pred_time": null,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-37",
+      "true_verdict": "no_violation",
+      "pred_verdict": "violation",
+      "true_time": null,
+      "pred_time": 9.1,
+      "verdict_match": false
+    },
+    {
+      "video": "Х-38",
+      "true_verdict": "violation",
+      "pred_verdict": "violation",
+      "true_time": 33.0,
+      "pred_time": 9.0,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-39",
+      "true_verdict": "no_violation",
+      "pred_verdict": "no_violation",
+      "true_time": null,
+      "pred_time": null,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-40",
+      "true_verdict": "violation",
+      "pred_verdict": "violation",
+      "true_time": 17.0,
+      "pred_time": 16.1,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-43",
+      "true_verdict": "no_violation",
+      "pred_verdict": "no_violation",
+      "true_time": null,
+      "pred_time": null,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-44",
+      "true_verdict": "violation",
+      "pred_verdict": "no_violation",
+      "true_time": 16.0,
+      "pred_time": null,
+      "verdict_match": false
+    },
+    {
+      "video": "Х-45",
+      "true_verdict": "no_violation",
+      "pred_verdict": "no_violation",
+      "true_time": null,
+      "pred_time": null,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-46",
+      "true_verdict": "violation",
+      "pred_verdict": "violation",
+      "true_time": 11.0,
+      "pred_time": 16.1,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-47",
+      "true_verdict": "violation",
+      "pred_verdict": "violation",
+      "true_time": 68.0,
+      "pred_time": 67.1,
+      "verdict_match": true
+    },
+    {
+      "video": "Х-48",
+      "true_verdict": "no_violation",
+      "pred_verdict": "no_violation",
+      "true_time": null,
+      "pred_time": null,
+      "verdict_match": true
+    }
+  ]
+}
